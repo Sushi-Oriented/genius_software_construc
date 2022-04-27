@@ -1,2 +1,10 @@
-# genius_software
-SCSJ4383 - Software Construction Project
+# Project Title
+E.g Electricity Monitoring
+
+## Tools
+
+
+## Install
+
+
+## About
