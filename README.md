@@ -6,7 +6,7 @@ E.g Electricity Monitoring
 
 ## Tools
 - ![Laravel](https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FLaravel&psig=AOvVaw06j4rFWcojbCb45cx8ikVt&ust=1651113380439000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCOiTz-aas_cCFQAAAAAdAAAAABAD) Laravel
-- ![Vue JS](https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommons.wikimedia.org%2Fwiki%2FFile%3AVue.js_Logo_2.svg&psig=AOvVaw1ab3nV290-lDnWh2fg6OyT&ust=1651113412610000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCLjJvPaas_cCFQAAAAAdAAAAABAD) Vue JS
+- ![Vue JS](https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/512px-Vue.js_Logo_2.svg.png?20170919082558) Vue JS
 
 ## Installation
 
