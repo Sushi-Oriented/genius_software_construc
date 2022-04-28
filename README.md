@@ -13,7 +13,7 @@ E.g Electricity Monitoring :electric_plug:
 
 ## Installation
 
-step-by-step by step by step
+step-by-step by step by
 
 
 ## About
