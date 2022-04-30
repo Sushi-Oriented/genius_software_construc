@@ -1,5 +1,5 @@
 # Project Title
-E.g Electricity Monitoring :electric_plug:
+E.g Electricity Monitoring :electric_plug: test
 
 ## Description
 - Monitor usage of electricity
