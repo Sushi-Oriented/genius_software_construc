@@ -1,15 +1,15 @@
 # Project Title
-E.g Electricity Monitoring :electric_plug:
+Product DevOps System :package:
 
 ## Description
-- Monitor usage of electricity
+- Manage the product
 
 ## Tools
 | Technology  | Name |
 | ------------- | ------------- |
-| <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/1200px-Laravel.svg.png" width="30" height="30"> | Laravel  |
-| <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Vue.js_Logo_2.svg/512px-Vue.js_Logo_2.svg.png?20170919082558" width="30" height="30"> | Vue JS  |
-| <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/2300px-React-icon.svg.png" width="30" height="30"> | React JS  |
+| <img src="https://www.devopsschool.com/blog/wp-content/uploads/2022/02/spring-boot-logo.png" width="80" height="40"> | Spring Boot  |
+| <img src="https://ih1.redbubble.net/image.382749689.2902/mp,504x498,matte,f8f8f8,t-pad,600x600,f8f8f8.u2.jpg" width="50" height="50"> | JavaScript  |
+| <img src="https://images.g2crowd.com/uploads/product/image/large_detail/large_detail_251be2af3ae607c45c14e816eaa1cf41/postgresql.png" width="50" height="50"> | PostgreSQL  |
 
 ## Installation
 
