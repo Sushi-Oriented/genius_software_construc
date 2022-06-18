@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/")
+// @RequestMapping("/")
 public class ProductController {
     @Autowired
-    ProductService service;
+    private ProductService service;
 
     // @RequestMapping
     @GetMapping("/products")
@@ -36,6 +36,25 @@ public class ProductController {
         // return "list-products";
         return ResponseEntity.ok().body(service.getAllProducts());
     }
+
+    // @Controller
+    // @RequestMapping("/")
+    // public class ProductController {
+    //     @Autowired
+    //     ProductService service;
+    
+    //     @RequestMapping
+    //     // @GetMapping("/products")
+    //     public String getAllProducts(Model model) {
+    //     // public ResponseEntity<List<ProductEntity>> getAllProduct() {
+    //         System.out.println("getAllProducts");
+    //         List<ProductEntity> list = service.getAllProducts();
+    //         model.addAttribute("products", list);
+    //         return "list-products";
+    //         // return ResponseEntity.ok().body(service.getAllProducts());
+    //     }
+
+
 
     // @RequestMapping(path = "/createProduct", method = RequestMethod.POST)
     @PostMapping("/products")
