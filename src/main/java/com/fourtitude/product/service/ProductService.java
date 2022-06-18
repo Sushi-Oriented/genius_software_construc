@@ -30,12 +30,13 @@ public class ProductService {
 	public ProductEntity getProductById(Long id) throws RecordNotFoundException {
 		System.out.println("getProductById");
 		Optional<ProductEntity> product = repository.findById(id);
+		boolean exist = repository.existsById(id);
 
-		if (product.isPresent()) {
-			return product.get();
-		} else {
-			throw new RecordNotFoundException("No product record exist for given id");
+		if (!exist) {
+			throw new RecordNotFoundException("No product record exist for given id: " + id + "!");
 		}
+
+		return product.get();
 	}
 
 	public ProductEntity createOrUpdateProduct(ProductEntity entity) {
@@ -77,7 +78,7 @@ public class ProductService {
 		if (product.isPresent()) {
 			repository.deleteById(id);
 		} else {
-			throw new RecordNotFoundException("No product record exist for given id");
+			throw new RecordNotFoundException("No product record exist for given id: " + id + "!");
 		}
 	}
 }
