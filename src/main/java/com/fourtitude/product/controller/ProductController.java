@@ -1,5 +1,6 @@
 package com.fourtitude.product.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,21 +11,28 @@ import com.fourtitude.product.service.ProductService;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-// @RequestMapping("/")
+@RequestMapping("/")
 public class ProductController {
     @Autowired
-    private ProductService service;
+    ProductService service;
+
+    // Return HTML View
+    @GetMapping("/test")
+    public ModelAndView index () {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("list-products");
+        return modelAndView;
+    }
 
     // @RequestMapping
     @GetMapping("/products")
@@ -37,32 +45,19 @@ public class ProductController {
         return ResponseEntity.ok().body(service.getAllProducts());
     }
 
-    // @Controller
-    // @RequestMapping("/")
-    // public class ProductController {
-    //     @Autowired
-    //     ProductService service;
-    
-    //     @RequestMapping
-    //     // @GetMapping("/products")
-    //     public String getAllProducts(Model model) {
-    //     // public ResponseEntity<List<ProductEntity>> getAllProduct() {
-    //         System.out.println("getAllProducts");
-    //         List<ProductEntity> list = service.getAllProducts();
-    //         model.addAttribute("products", list);
-    //         return "list-products";
-    //         // return ResponseEntity.ok().body(service.getAllProducts());
-    //     }
-
-
+    /* Get Single Products */
+    @GetMapping("/products/{id}")
+    public ProductEntity getProduct(@PathVariable("id") Long id) throws RecordNotFoundException {
+        return service.getProductById(id);
+    }
 
     // @RequestMapping(path = "/createProduct", method = RequestMethod.POST)
     @PostMapping("/products")
-	public String createOrUpdateProduct(ProductEntity product) {
-		System.out.println("createOrUpdateProduct ");
-		service.createOrUpdateProduct(product);
-		return "redirect:/";
-	}
+    public String createOrUpdateProduct(ProductEntity product) {
+        System.out.println("createOrUpdateProduct ");
+        service.createOrUpdateProduct(product);
+        return "Inserted";
+    }
 
     // @RequestMapping(path = { "/edit", "/edit/{id}" })
     @PutMapping("/edit/{id}")
@@ -82,12 +77,12 @@ public class ProductController {
 
     // @RequestMapping(path = "/delete/{id}")
     @DeleteMapping("/delete/{id}")
-	public String deleteProductById(Model model, @PathVariable("id") Long id)
-			throws RecordNotFoundException {
+    public String deleteProductById(Model model, @PathVariable("id") Long id)
+            throws RecordNotFoundException {
 
-		System.out.println("deleteProductById" + id);
+        System.out.println("deleteProductById" + id);
 
-		service.deleteProductById(id);
-		return "redirect:/";
-	}
+        service.deleteProductById(id);
+        return "redirect:/";
+    }
 }
