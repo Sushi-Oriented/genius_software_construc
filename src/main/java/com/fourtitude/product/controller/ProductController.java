@@ -46,7 +46,7 @@ public class ProductController {
     }
 
     /* Get Single Products */
-    @GetMapping("/products/{id}")
+    @GetMapping("/product/{id}")
     public ProductEntity getProduct(@PathVariable("id") Long id) throws RecordNotFoundException {
         return service.getProductById(id);
     }
@@ -60,7 +60,7 @@ public class ProductController {
     }
 
     // @RequestMapping(path = { "/edit", "/edit/{id}" })
-    @PutMapping("/edit/{id}")
+    @PutMapping("/product/{id}")
     public String editProductById(Model model, @PathVariable("id") Optional<Long> id)
             throws RecordNotFoundException {
 
@@ -76,13 +76,13 @@ public class ProductController {
     }
 
     // @RequestMapping(path = "/delete/{id}")
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/product/{id}")
     public String deleteProductById(Model model, @PathVariable("id") Long id)
             throws RecordNotFoundException {
 
         System.out.println("deleteProductById" + id);
 
         service.deleteProductById(id);
-        return "redirect:/";
+        return "Deleted";
     }
 }
