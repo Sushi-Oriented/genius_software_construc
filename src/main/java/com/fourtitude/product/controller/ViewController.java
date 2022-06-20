@@ -9,4 +9,9 @@ public class ViewController {
     public String viewProducts() {
        return "list-products";
     }
+
+    @RequestMapping("/add")
+    public String addProducts() {
+       return "add-edit-product";
+    }
 }

@@ -6,8 +6,12 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>All Products</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 
 <body onload="loadTableData();">
@@ -62,6 +66,82 @@
             <!-- </div> -->
         </div>
     </div>
+    <!-- Modal -->
+
+    <!-- <div id="orderModal" class="modal hide fade" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+             <h3>Order</h3>
+    
+        </div>
+        <div id="orderDetails" class="modal-body"></div>
+        <div id="orderItems" class="modal-body"></div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        </div>
+    </div> -->
+
+<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="orderModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="signup">
+            <div id="orderDetails" class="modal-body"></div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" class="form-control"  aria-describedby="emailHelp" placeholder="Enter email">
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+              </div>
+              <div class="form-group">
+                <label for="category">Category</label>
+                <select class="form-control" name="category" id="category">
+                  
+                  <option>Mens Clothing</option>
+                  <option>	Health Accessories</option>
+                  <option>Mobile & Gadgets</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Brand</label>
+                <select class="form-control" id="brand">
+                  <option>Medicos</option>
+                  <option>Xiaomi</option>
+                  <option>Gemei</option>
+                  <option>Oreo</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Type</label>
+                <select class="form-control" id="type">
+                  <option>Hygiene</option>
+                  <option>Mobile Phones</option>
+                  <option>Biscuits & Cookies</option>
+                  <option>No Type</option>
+                  <option>-</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Description</label>
+                <input type="text" class="form-control" name="description" id="description" placeholder="Insert Description">
+                <small id="emailHelp" class="form-text text-muted">Short description</small>
+              </div>
+              <div id="orderDetails" class="modal-body"></div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
     function loadTableData(){
@@ -86,8 +166,8 @@
                                     student += '<td>' + value.brand + '</td>';
                                     student += '<td>' + value.type + '</td>';
                                     student += '<td>' + value.description + '</td>';
-                                    student += '<td ><a href="" onclick="deleteTODO(' + value.id + ')" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a></td>';
-                                    student += '<td ><a href="" onclick="deleteTODO(' + value.id + ')" class="btn btn-primary"><i class="bi bi-trash-fill"></i></a></td>';
+                                    student += '<td><a href="" onclick="editTODO(' + value.id + ')" class="btn btn-primary" data-toggle="modal"  id="' + value.id + '"  data-target="#orderModal" id="modal"><i class="bi bi-pencil-square"></i></a></td>';
+                                    student += '<td><a href="" onclick="deleteTODO(' + value.id + ')" class="btn btn-primary"><i class="bi bi-trash-fill"></i></a></td>';
                                     student += '</tr>';
                                 });
 
@@ -112,6 +192,97 @@
             
         });
     }
+
+    function editTODO(event) {
+        console.log(event)
+    	$.ajax({
+            type: 'get',
+            url: 'http://localhost:8080/product/'+event,
+            contentType: "application/json; charset=utf-8",
+            traditional: true,
+            success: function (data) {
+                alert('status changed!!!');
+                console.log(data)
+                $(".modal-body #name").val( data.name );
+                $(".modal-body #category").val( data.category );
+                $(".modal-body #brand").val( data.brand );
+                $(".modal-body #type").val( data.type );
+                $(".modal-body #description").val( data.description );
+                // window.location.reload(); 
+            }
+        });
+    }
+
+    function editsubmit() {
+        e.preventDefault();
+        console.log('asubmit')
+        // document.getElementById("myForm").submit();
+        // console.log(document.getElementById("myForm").submit())
+    	// $.ajax({
+        //     type: 'get',
+        //     url: 'http://localhost:8080/product/'+event,
+        //     contentType: "application/json; charset=utf-8",
+        //     traditional: true,
+        //     success: function (data) {
+        //         alert('status changed!!!');
+        //         console.log(data)
+        //         $(".modal-body #name").val( data.name );
+        //         $(".modal-body #category").val( data.category );
+        //         $(".modal-body #brand").val( data.brand );
+        //         $(".modal-body #type").val( data.type );
+        //         $(".modal-body #description").val( data.description );
+        //         // window.location.reload(); 
+        //     }
+        // });
+    }
+
+    const form = document.querySelector("#signup");
+    
+    const NAME_REQUIRED = "Please enter your name";
+const EMAIL_REQUIRED = "Please enter your email";
+const EMAIL_INVALID = "Please enter a correct email address format";
+
+    form.addEventListener("submit", function (event) {
+	// stop form submission
+	event.preventDefault();
+
+	// validate the form
+    // $(".modal-body #name").val( data.name );
+    var name = document.getElementById("name").value
+    var category = document.getElementById("category").value
+    var brand = document.getElementById("brand").value
+    var type = document.getElementById("type").value
+    var description = document.getElementById("description").value
+    urlString = 'http://localhost:8080/product/1?name="test';
+
+    $.ajax({
+            type: 'put',
+            url: urlString,
+            contentType: "application/json; charset=utf-8",
+            traditional: true,
+            success: function (data) {
+                console.log(data)
+                alert('status changed!!!');
+                // window.location.reload(); 
+               
+            }
+            
+        });
+});
+
+    
+//     $(function(){
+    // $('#orderModal').modal({
+    //     keyboard: true,
+    //     backdrop: "static",
+    //     show:false,
+
+    // }).on('show', function(){ //subscribe to show method
+    //       var getIdFromRow = $(event.target).closest('tr').data('id'); //get the id from tr
+    //     //make your ajax call populate items or what even you need
+    //     $(this).find('#orderDetails').html($('<b> Order Id selected: ' + getIdFromRow  + '</b>'))
+    // });
+// });
     </script>
 </body>
 

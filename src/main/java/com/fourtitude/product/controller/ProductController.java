@@ -34,6 +34,11 @@ public class ProductController {
         return modelAndView;
     }
 
+
+
+	
+
+
     // @RequestMapping
     @GetMapping("/products")
     // public String getAllProducts(Model model) {
