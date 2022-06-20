@@ -1,80 +1,155 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Add Product</title>
+    <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 
-<body>
-    <div class="container my-5" style="padding-top: 30px;">
-        <h1>Add Product</h1>
-        <hr><br>
-        <p>
-            <a href="/" class="btn btn-primary">
-                Back to listing</a>
-        </p><br>
-        <div class="card">
-            <div class="card-body">
-                <div class="col-md-15">
-                    <form th:action="@{/createProduct}" th:object="${product}" method="post">
-                        <table>
-                            <tr>
-                                <td>Code</td>
-                                <td style="width:20px;">:</td>
+<body onload="loadProductData()">
+<div class="container my-5" style="padding-top: 30px;">
+    <div id="form-product"></div>
+    <hr>
+    <br>
+    <p>
+        <button class="btn btn-primary" onclick="return_tab()">
+            Back to listing
+        </button>
+    </p>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <div class="col-md-15">
+                <div id="product-data"></div>
+                <form action="" method="post">
+                    <table>
+                        <tr>
+                            <td>Code</td>
+                            <td style="width:20px;">:</td>
 
-                                <td><input type="text" th:field="*{code}" class="form-control" id="code"
-                                        placeholder="Code" /></td>
-                            </tr>
-                            <tr>
-                                <td>Name</td>
-                                <td style="width:20px;">:</td>
+                            <td><input type="text" class="form-control" id="code"
+                                       placeholder="Code"/></td>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <td>Name</td>-->
+<!--                            <td style="width:20px;">:</td>-->
 
-                                <td><input type="text" th:field="*{name}" class="form-control" id="name"
-                                        placeholder="Name" /></td>
-                            </tr>
-                            <tr>
-                                <td>Category</td>
-                                <td style="width:20px;">:</td>
+<!--                            <td><input type="text" th:field="*{name}" class="form-control" id="name"-->
+<!--                                       placeholder="Name"/></td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>Category</td>-->
+<!--                            <td style="width:20px;">:</td>-->
 
-                                <td><input type="text" th:field="*{category}" class="form-control" id="category"
-                                        placeholder="Category" /></td>
-                            </tr>
-                            <tr>
-                                <td>Brand</td>
-                                <td style="width:20px;">:</td>
+<!--                            <td><input type="text" th:field="*{category}" class="form-control" id="category"-->
+<!--                                       placeholder="Category"/></td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>Brand</td>-->
+<!--                            <td style="width:20px;">:</td>-->
 
-                                <td><input type="text" th:field="*{brand}" class="form-control" id="brand"
-                                        placeholder="Brand" /></td>
-                            </tr>
-                            <tr>
-                                <td>Type</td>
-                                <td style="width:20px;">:</td>
-                                <td><input type="text" th:field="*{type}" class="form-control" id="type"
-                                        placeholder="Type" /></td>
-                            </tr>
-                            <tr>
-                                <td>Description</td>
-                                <td style="width:20px;">:</td>
+<!--                            <td><input type="text" th:field="*{brand}" class="form-control" id="brand"-->
+<!--                                       placeholder="Brand"/></td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>Type</td>-->
+<!--                            <td style="width:20px;">:</td>-->
+<!--                            <td><input type="text" th:field="*{type}" class="form-control" id="type"-->
+<!--                                       placeholder="Type"/></td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td>Description</td>-->
+<!--                            <td style="width:20px;">:</td>-->
 
-                                <td><input type="text" th:field="*{description}" class="form-control" id="description"
-                                        placeholder="Description" /></td>
-                            </tr>
-                        </table>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="submit" class="btn btn-primary" value=" Submit ">
-                            </div>
-                            <input type="hidden" id="id" th:field="*{id}">
-                        </div>
-                    </form>
-                </div>
+<!--                            <td><input type="text" th:field="*{description}" class="form-control" id="description"-->
+<!--                                       placeholder="Description"/></td>-->
+<!--                        </tr>-->
+                    </table>
+<!--                    <div class="row">-->
+<!--                        <div class="col-md-6">-->
+<!--                            <input type="submit" class="btn btn-primary" value=" Submit ">-->
+<!--                        </div>-->
+<!--                        <input type="hidden" id="id" th:field="*{id}">-->
+<!--                    </div>-->
+                </form>
             </div>
         </div>
     </div>
+</div>
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+    // Store product ID;
+    let prodId = '';
+
+    // Get product ID from URL;
+    $(document).ready(function () {
+        const queryString = window.location.search.slice(4);
+        prodId = queryString;
+    });
+
+    // Load selected product ID
+    function loadProductData() {
+        if (!prodId) {
+            console.log('Add product');
+            $("#form-product").append("<h1>Add Product</h1>");
+            document.title = "Add Product";
+        } else {
+            $("#form-product").append("<h1>Edit Product</h1>");
+            document.title = "Edit Product";
+            $(document).ready(function () {
+                $.ajax({
+                    url: 'http://localhost:8080/product',
+                    type: 'GET',
+                    contentType: "application/json",
+                    jsonpCallback: "jsonRead",
+                    data: {
+                        id: prodId,
+                    },
+                    headers: {'Accept': 'application/json', 'X-Request': 'JSON'},
+                    success: function (data) {
+                        alert("Product with id, " + prodId  + " fetched!");
+                        console.log(data);
+                        $.each(data, function(index, element) {
+                            console.log(element);
+                        });
+                    },
+                    error: function (error) {
+                        console.log(error.toString());
+                    },
+                });
+            });
+        }
+    }
+
+    // Cancel current action
+    function return_tab() {
+        let text = "Close this tab?";
+        if (confirm(text) == true) {
+            window.close();
+        }
+    }
+
+    function updateProd(prodId) {
+        $.ajax({
+            url: 'http://localhost:8080/product/' + prodId,
+            type: 'put',
+            contentType: 'application/json',
+            // traditional: true,
+            headers: {'Accept': 'application/json', 'X-Request': 'JSON'},
+            success: function (response) {
+                alert("Product deleted");
+                window.location.reload();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+</script>
 
 </html>
