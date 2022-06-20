@@ -65,37 +65,8 @@
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
     function loadTableData(){
-    	
-        // $.ajax({
-        //        url: 'http://localhost:8080/products',
-             
-        //        type: 'GET',
-        //        contentType: "application/json",
-        //        jsonpCallback: "jsonRead" ,
-        //        headers:{'Accept': 'application/json', 'X-Request': 'JSON'},
-        //        success: function(response) {
-        //         console.log(response)
-        //            window.data=response;
-        //            displayTable(response);
-                   
-        //        },
-        //        error: function(error) {
-                 
-        //            console.log(error);
-        //        }
-        //    });
 
         $(document).ready(function () {
-                        // $.ajax({
-                        //     url: 'http://localhost:8080/products',
-                        //     type: 'GET',
-                        //     contentType: 'application/json',
-                        //     jsonpCallback: 'jsonRead',
-                        //     headers: { 'Accept': 'application/json', 'X-Request': 'JSON' },
-                        //     success: function (result) {
-                        //         console.log(result);
-                        //     }
-                        // });
 
                         // FETCHING DATA FROM JSON FILE
                         $.getJSON("http://localhost:8080/products",
@@ -115,20 +86,8 @@
                                     student += '<td>' + value.brand + '</td>';
                                     student += '<td>' + value.type + '</td>';
                                     student += '<td>' + value.description + '</td>';
-                                    student += '<td><a href="http://localhost:8080/edit/'+value.id+'" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a></td>';
-                                    student += '<td><a href="http://localhost:8080/delete/'+value.id+'" class="btn btn-primary"><i class="bi bi-trash-fill"></i></i></a></td>';
-
-                                    // <td>
-                                    //     <a th:href="@{/edit/{id}(id=${product.id})}" class="btn btn-primary">
-                                    //         <i class="bi bi-pencil-square"></i>
-                                    //     </a>
-                                    // </td>
-                                    // <td>
-                                    //     <a th:href="@{/delete/{id}(id=${product.id})}" class="btn btn-primary">
-                                    //         <i class="bi bi-trash-fill"></i>
-                                    //     </a>
-                                    // </td>
-
+                                    student += '<td ><a href="" onclick="deleteTODO(' + value.id + ')" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a></td>';
+                                    student += '<td ><a href="" onclick="deleteTODO(' + value.id + ')" class="btn btn-primary"><i class="bi bi-trash-fill"></i></a></td>';
                                     student += '</tr>';
                                 });
 
@@ -138,6 +97,21 @@
                     });
      }
 
+     function deleteTODO(deleteId) {
+        console.log(deleteId)
+    	$.ajax({
+            type: 'delete',
+            url: 'http://localhost:8080/delete/'+deleteId,
+            contentType: "application/json; charset=utf-8",
+            traditional: true,
+            success: function (data) {
+                alert('TODO Deleted!!!');
+                window.location.reload(); 
+               
+            }
+            
+        });
+    }
     </script>
 </body>
 

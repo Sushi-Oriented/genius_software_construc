@@ -76,7 +76,7 @@ public class ProductController {
     }
 
     // @RequestMapping(path = "/delete/{id}")
-    @DeleteMapping("/product/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteProductById(Model model, @PathVariable("id") Long id)
             throws RecordNotFoundException {
 
