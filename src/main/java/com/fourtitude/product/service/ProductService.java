@@ -56,7 +56,8 @@ public class ProductService {
 
 	public ProductEntity createOrUpdateProduct(ProductEntity entity)  {
 		System.out.println("createOrUpdateProduct");
-		
+		System.out.println(entity.getId());
+		System.out.println(entity.getName());
 		// Create new entry
 		if (entity.getId() == null) {
 			entity = repository.save(entity);
@@ -65,7 +66,7 @@ public class ProductService {
 		} else {
 			// update existing entry
 			Optional<ProductEntity> product = repository.findById(entity.getId());
-			System.out.println(entity);
+			
 			if (product.isPresent()) {
 				ProductEntity newEntity = product.get();
 				newEntity.setBrand(entity.getBrand());

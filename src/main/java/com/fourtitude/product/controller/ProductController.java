@@ -65,28 +65,41 @@ public class ProductController {
         return "Inserted";
     }
 
+	// @PostMapping("/products/{id}")
+	// public void createOrUpdateProduct(@PathVariable long id, @RequestBody ProductEntity product){
+	// 	product.setId(id);
+	// 	return ResponseEntity.ok().body(this.service.createOrUpdateProduct(product))
+		
+	// }
+
+	// @PutMapping("/products/{id}")
+	// public ResponseEntity<ProductEntity> createOrUpdateProduct(@PathVariable long id, @RequestBody ProductEntity product){
+	// 	System.out.println(product);
+	// 	product.setId(id);
+		
+	// 	return ResponseEntity.ok().body(this.service.createOrUpdateProduct(product));
+	// }
+
     // @RequestMapping(path = { "/edit", "/edit/{id}" })
-    // @PutMapping("/product/{id}")
-    // public String editProductById(Model model, @PathVariable("id") Optional<Long> id)
-    //         throws RecordNotFoundException {
+    @PostMapping("/product/{id}")
+    public String editProductById(Model model, @PathVariable("id") Optional<Long> id)
+            throws RecordNotFoundException {
 
-    //     System.out.println("editProductById" + id);
-    //     if (id.isPresent()) {
-    //         ProductEntity entity = service.getProductById(id.get());
-    //         model.addAttribute("product", entity);
-    //     } else {
-    //         model.addAttribute("product", new ProductEntity());
-    //     }
+        System.out.println("editProductById" + id);
+        if (id.isPresent()) {
+            ProductEntity entity = service.getProductById(id.get());
+            model.addAttribute("product", entity);
+			service.createOrUpdateProduct(entity);
+        } else {
+			ProductEntity entity = new ProductEntity();
+            model.addAttribute("product", new ProductEntity());
+			service.createOrUpdateProduct(entity);
+        }
 
-    //     return ResponseEntity.ok().body(this.service.updateProduct(service));
-    // }
+        return "ResponseEntity.ok().body(this.service.updateProduct(service))";
+    }
 
-	@PutMapping("/products/{id}")
-	public ResponseEntity<ProductEntity> updateProduct(@PathVariable long id, @RequestBody ProductEntity product){
-		product.setId(id);
-		System.out.println(product);
-		return ResponseEntity.ok().body(this.service.createOrUpdateProduct(product));
-	}
+
 
     // @RequestMapping(path = "/delete/{id}")
     @DeleteMapping("/delete/{id}")

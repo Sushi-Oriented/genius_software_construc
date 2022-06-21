@@ -91,7 +91,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form id="signup">
+          <form id="signup" method="post">
             <div id="orderDetails" class="modal-body"></div>
             <div class="form-group">
                 <label for="name">Name</label>
@@ -109,7 +109,7 @@
               </div>
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Brand</label>
-                <select class="form-control" id="brand">
+                <select class="form-control" name="brand" id="brand">
                   <option>Medicos</option>
                   <option>Xiaomi</option>
                   <option>Gemei</option>
@@ -118,7 +118,7 @@
               </div>
               <div class="form-group">
                 <label for="exampleFormControlSelect1">Type</label>
-                <select class="form-control" id="type">
+                <select class="form-control" name="type" id="type">
                   <option>Hygiene</option>
                   <option>Mobile Phones</option>
                   <option>Biscuits & Cookies</option>
@@ -132,7 +132,7 @@
                 <small id="emailHelp" class="form-text text-muted">Short description</small>
               </div>
               <div id="orderDetails" class="modal-body"></div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary" >Submit</button>
           </form>
         </div>
         <!-- <div class="modal-footer">
@@ -185,8 +185,8 @@
             contentType: "application/json; charset=utf-8",
             traditional: true,
             success: function (data) {
-                alert('TODO Deleted!!!');
-                window.location.reload(); 
+                alert('TODO Deleted!!!')
+                window.location.reload()
                
             }
             
@@ -253,19 +253,25 @@ const EMAIL_INVALID = "Please enter a correct email address format";
     var brand = document.getElementById("brand").value
     var type = document.getElementById("type").value
     var description = document.getElementById("description").value
-    urlString = 'http://localhost:8080/product/1?name="test';
+
+    
+    urlString = 'http://localhost:8080/product/1';
 
     $.ajax({
-            type: 'put',
+            type: 'post',
             url: urlString,
             contentType: "application/json; charset=utf-8",
+            // data: { 'name': name },
             traditional: true,
             success: function (data) {
                 console.log(data)
                 alert('status changed!!!');
                 // window.location.reload(); 
                
-            }
+            },
+            // error: function (error) {
+            //         alert(error);
+            //     }
             
         });
 });
