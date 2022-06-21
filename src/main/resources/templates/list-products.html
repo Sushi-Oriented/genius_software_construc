@@ -15,282 +15,105 @@
 </head>
 
 <body onload="loadTableData();">
-    <div class="card" style="padding-top: 30px;">
-        <div class="card-body">
-            <!-- <div th:switch="${products}" class="container my-5"> -->
-                <h1>Product List</h1><br>
-                <p>
-                    <a href="/edit" class="btn btn-primary">
-                        Create New Product</a>
-                </p><br>
-                <div class="col-md-15">
-<!--                    <h2 >No record(s) found !!</h2>-->
-                    <div>
-                        <table class="table table-striped table-responsive-md">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Code</th>
-                                    <th>Name</th>
-                                    <th>Category</th>
-                                    <th>Brand</th>
-                                    <th>Type</th>
-                                    <th>Description</th>
-                                    <th colspan="2">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody  id="tableHere">
-                                <!-- <tr th:each="product : ${products}">
-                                    <td th:text="${product.id}"></td>
-                                    <td th:text="${product.code}"></td>
-                                    <td th:text="${product.name}"></td>
-                                    <td th:text="${product.category}"></td>
-                                    <td th:text="${product.brand}"></td>
-                                    <td th:text="${product.type}"></td>
-                                    <td th:text="${product.description}"></td>
-                                    <td>
-                                        <a th:href="@{/edit/{id}(id=${product.id})}" class="btn btn-primary">
-                                            <i class="bi bi-pencil-square"></i>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a th:href="@{/delete/{id}(id=${product.id})}" class="btn btn-primary">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </a>
-                                    </td>
-                                </tr> -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            <!-- </div> -->
+<div class="card" style="padding-top: 30px;">
+    <div class="card-body">
+        <!-- <div th:switch="${products}" class="container my-5"> -->
+        <h1>Product List</h1><br>
+        <p>
+            <a href="/add-product" class="btn btn-primary">
+                Create New Product
+            </a>
+        </p><br>
+        <div class="col-md-15">
+            <div>
+                <table class="table table-striped table-responsive-md">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Brand</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody id="prodTable">
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <!-- </div> -->
     </div>
-    <!-- Modal -->
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
 
-    <!-- <div id="orderModal" class="modal hide fade" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
-             <h3>Order</h3>
-    
-        </div>
-        <div id="orderDetails" class="modal-body"></div>
-        <div id="orderItems" class="modal-body"></div>
-        <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-        </div>
-    </div> -->
-
-<div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="orderModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form id="signup" method="post">
-            <div id="orderDetails" class="modal-body"></div>
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name" class="form-control"  aria-describedby="emailHelp" placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-              </div>
-              <div class="form-group">
-                <label for="category">Category</label>
-                <select class="form-control" name="category" id="category">
-                  
-                  <option>Mens Clothing</option>
-                  <option>	Health Accessories</option>
-                  <option>Mobile & Gadgets</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="exampleFormControlSelect1">Brand</label>
-                <select class="form-control" name="brand" id="brand">
-                  <option>Medicos</option>
-                  <option>Xiaomi</option>
-                  <option>Gemei</option>
-                  <option>Oreo</option>
-                  
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="exampleFormControlSelect1">Type</label>
-                <select class="form-control" name="type" id="type">
-                  <option>Hygiene</option>
-                  <option>Mobile Phones</option>
-                  <option>Biscuits & Cookies</option>
-                  <option>No Type</option>
-                  <option>-</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Description</label>
-                <input type="text" class="form-control" name="description" id="description" placeholder="Insert Description">
-                <small id="emailHelp" class="form-text text-muted">Short description</small>
-              </div>
-              <div id="orderDetails" class="modal-body"></div>
-              <button type="submit" class="btn btn-primary" >Submit</button>
-          </form>
-        </div>
-        <!-- <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div> -->
-      </div>
-    </div>
-  </div>
-    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script type="text/javascript">
-    function loadTableData(){
-
+    // Initialize page by load all producst data
+    function loadTableData() {
         $(document).ready(function () {
+            $.ajax({
+                url: 'http://localhost:8080/products',
+                type: 'GET',
+                contentType: "application/json",
+                jsonpCallback: "jsonRead",
+                headers: {'Accept': 'application/json', 'X-Request': 'JSON'},
+                success: function (response) {
+                    console.log(response);
+                    if (response == '') {
+                        alert('No product exist!');
+                    } else {
+                        $.each(response, function (i, item) {
+                            var $tr = $('<tr>').append(
+                                $('<td>').text(item.id),
+                                $('<td>').text(item.code),
+                                $('<td>').text(item.name),
+                                $('<td>').text(item.category),
+                                $('<td>').text(item.type),
+                                $('<td>').text(item.description),
+                                $('<td>').prepend('<button class="btn btn-warning" onclick=getProd(' + item.id + ')><i class="bi bi-pencil-square"></i></button>'),
+                                $('<td>').prepend('<button class="btn btn-danger" onclick=deleteProd(' + item.id + ')><i class="bi bi-trash-fill"></i></button>'),
+                            ).appendTo('#prodTable');
+                            // console.log($tr.wrap('<p>').html());
+                        });
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    }
 
-                        // FETCHING DATA FROM JSON FILE
-                        $.getJSON("http://localhost:8080/products",
-                            function (data) {
-                                var student = '';
-
-                                // ITERATING THROUGH OBJECTS
-                                $.each(data, function (key, value) {
-
-                                    //CONSTRUCTION OF ROWS HAVING
-                                    // DATA FROM JSON OBJECT
-                                    student += '<tr>';
-                                    student += '<td>' + value.id + '</td>';
-                                    student += '<td>' + value.code + '</td>';
-                                    student += '<td>' + value.name + '</td>';
-                                    student += '<td>' + value.category + '</td>';
-                                    student += '<td>' + value.brand + '</td>';
-                                    student += '<td>' + value.type + '</td>';
-                                    student += '<td>' + value.description + '</td>';
-                                    student += '<td><a href="" onclick="editTODO(' + value.id + ')" class="btn btn-primary" data-toggle="modal"  id="' + value.id + '"  data-target="#orderModal" id="modal"><i class="bi bi-pencil-square"></i></a></td>';
-                                    student += '<td><a href="" onclick="deleteTODO(' + value.id + ')" class="btn btn-primary"><i class="bi bi-trash-fill"></i></a></td>';
-                                    student += '</tr>';
-                                });
-
-                                //INSERTING ROWS INTO TABLE 
-                                $('#tableHere').append(student);
-                            });
-                    });
-     }
-
-     function deleteTODO(deleteId) {
-        console.log(deleteId)
-    	$.ajax({
+    // Delete product
+    function deleteProd(prodId) {
+        $.ajax({
+            url: 'http://localhost:8080/product/' + prodId,
             type: 'delete',
-            url: 'http://localhost:8080/delete/'+deleteId,
-            contentType: "application/json; charset=utf-8",
+            contentType: 'application/json',
             traditional: true,
-            success: function (data) {
-                alert('TODO Deleted!!!')
-                window.location.reload()
-               
-            }
-            
-        });
-    }
-
-    function editTODO(event) {
-        console.log(event)
-    	$.ajax({
-            type: 'get',
-            url: 'http://localhost:8080/product/'+event,
-            contentType: "application/json; charset=utf-8",
-            traditional: true,
-            success: function (data) {
-                alert('status changed!!!');
-                console.log(data)
-                $(".modal-body #name").val( data.name );
-                $(".modal-body #category").val( data.category );
-                $(".modal-body #brand").val( data.brand );
-                $(".modal-body #type").val( data.type );
-                $(".modal-body #description").val( data.description );
-                // window.location.reload(); 
-            }
-        });
-    }
-
-    function editsubmit() {
-        e.preventDefault();
-        console.log('asubmit')
-        // document.getElementById("myForm").submit();
-        // console.log(document.getElementById("myForm").submit())
-    	// $.ajax({
-        //     type: 'get',
-        //     url: 'http://localhost:8080/product/'+event,
-        //     contentType: "application/json; charset=utf-8",
-        //     traditional: true,
-        //     success: function (data) {
-        //         alert('status changed!!!');
-        //         console.log(data)
-        //         $(".modal-body #name").val( data.name );
-        //         $(".modal-body #category").val( data.category );
-        //         $(".modal-body #brand").val( data.brand );
-        //         $(".modal-body #type").val( data.type );
-        //         $(".modal-body #description").val( data.description );
-        //         // window.location.reload(); 
-        //     }
-        // });
-    }
-
-    const form = document.querySelector("#signup");
-    
-    const NAME_REQUIRED = "Please enter your name";
-const EMAIL_REQUIRED = "Please enter your email";
-const EMAIL_INVALID = "Please enter a correct email address format";
-
-    form.addEventListener("submit", function (event) {
-	// stop form submission
-	event.preventDefault();
-
-	// validate the form
-    // $(".modal-body #name").val( data.name );
-    var name = document.getElementById("name").value
-    var category = document.getElementById("category").value
-    var brand = document.getElementById("brand").value
-    var type = document.getElementById("type").value
-    var description = document.getElementById("description").value
-
-    
-    urlString = 'http://localhost:8080/product/1';
-
-    $.ajax({
-            type: 'post',
-            url: urlString,
-            contentType: "application/json; charset=utf-8",
-            // data: { 'name': name },
-            traditional: true,
-            success: function (data) {
-                console.log(data)
-                alert('status changed!!!');
-                // window.location.reload(); 
-               
+            // headers: {'Accept': 'application/json', 'X-Request': 'JSON'},
+            success: function (response) {
+                alert("Product deleted");
+                window.location.reload();
             },
-            // error: function (error) {
-            //         alert(error);
-            //     }
-            
+            error: function (error) {
+                console.log(error);
+            }
         });
-});
+    }
 
-    
-//     $(function(){
-    // $('#orderModal').modal({
-    //     keyboard: true,
-    //     backdrop: "static",
-    //     show:false,
+    // Redirect to manage product page
+    function getProd(prodId) {
+        console.log(prodId);
+        const url = "http://localhost:8080/edit-product?id=" + prodId;
+        console.log(url);
+        window.location.href = url;
+        // window.open(url, '_blank');
+    }
 
-    // }).on('show', function(){ //subscribe to show method
-    //       var getIdFromRow = $(event.target).closest('tr').data('id'); //get the id from tr
-    //     //make your ajax call populate items or what even you need
-    //     $(this).find('#orderDetails').html($('<b> Order Id selected: ' + getIdFromRow  + '</b>'))
-    // });
-// });
-    </script>
+</script>
 </body>
 
 
