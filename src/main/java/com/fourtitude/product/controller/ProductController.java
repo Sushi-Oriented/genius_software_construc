@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.fourtitude.product.exception.DataResponseException;
 import com.fourtitude.product.exception.RecordNotFoundException;
 import com.fourtitude.product.model.ProductEntity;
 import com.fourtitude.product.service.ProductService;
