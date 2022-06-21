@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.fourtitude.product.exception.DataResponseException;
 import com.fourtitude.product.exception.RecordNotFoundException;
 import com.fourtitude.product.model.ProductEntity;
 import com.fourtitude.product.service.ProductService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/")
@@ -49,6 +50,7 @@ public class ProductController {
         System.out.println("editProductById " + id);
         if (id.isPresent()) {
             ProductEntity entity = service.getProductById(id.get());
+            service.createOrUpdateProduct(entity);
             model.addAttribute("product", entity);
         } else {
             model.addAttribute("product", new ProductEntity());

@@ -16,7 +16,7 @@
         <!-- <div th:switch="${products}" class="container my-5"> -->
         <h1>Product List</h1><br>
         <p>
-            <a href="/add-product" target="_blank" class="btn btn-primary">
+            <a href="/add-product" class="btn btn-primary">
                 Create New Product
             </a>
         </p><br>
@@ -105,7 +105,8 @@
         console.log(prodId);
         const url = "http://localhost:8080/edit-product?id=" + prodId;
         console.log(url);
-        window.open(url, '_blank');
+        window.location.href = url;
+        // window.open(url, '_blank');
     }
 
 </script>
