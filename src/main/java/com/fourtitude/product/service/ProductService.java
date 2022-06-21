@@ -39,8 +39,24 @@ public class ProductService {
 		return product.get();
 	}
 
-	public ProductEntity createOrUpdateProduct(ProductEntity entity) {
+	// public ProductEntity updateProduct(ProductEntity product) throws RecordNotFoundException{
+    //     Optional<ProductEntity> productDb = this.repository.findById(product.getId());
+
+    //     if (productDb.isPresent()) {
+    //         ProductEntity productUpdate = productDb.get();
+    //         productUpdate.setId(product.getId());
+    //         productUpdate.setName(product.getName());
+    //         productUpdate.setDescription(product.getDescription());
+    //         repository.save(productUpdate);
+    //         return productUpdate;
+    //     } else {
+    //         throw new RecordNotFoundException("Record not found with id : " + product.getId());
+    //     }
+    // }
+
+	public ProductEntity createOrUpdateProduct(ProductEntity entity)  {
 		System.out.println("createOrUpdateProduct");
+		
 		// Create new entry
 		if (entity.getId() == null) {
 			entity = repository.save(entity);
@@ -49,7 +65,7 @@ public class ProductService {
 		} else {
 			// update existing entry
 			Optional<ProductEntity> product = repository.findById(entity.getId());
-
+			System.out.println(entity);
 			if (product.isPresent()) {
 				ProductEntity newEntity = product.get();
 				newEntity.setBrand(entity.getBrand());

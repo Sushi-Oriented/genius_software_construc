@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -65,20 +66,27 @@ public class ProductController {
     }
 
     // @RequestMapping(path = { "/edit", "/edit/{id}" })
-    @PutMapping("/product/{id}")
-    public String editProductById(Model model, @PathVariable("id") Optional<Long> id)
-            throws RecordNotFoundException {
+    // @PutMapping("/product/{id}")
+    // public String editProductById(Model model, @PathVariable("id") Optional<Long> id)
+    //         throws RecordNotFoundException {
 
-        System.out.println("editProductById" + id);
-        if (id.isPresent()) {
-            ProductEntity entity = service.getProductById(id.get());
-            model.addAttribute("product", entity);
-        } else {
-            model.addAttribute("product", new ProductEntity());
-        }
+    //     System.out.println("editProductById" + id);
+    //     if (id.isPresent()) {
+    //         ProductEntity entity = service.getProductById(id.get());
+    //         model.addAttribute("product", entity);
+    //     } else {
+    //         model.addAttribute("product", new ProductEntity());
+    //     }
 
-        return "add-edit-product";
-    }
+    //     return ResponseEntity.ok().body(this.service.updateProduct(service));
+    // }
+
+	@PutMapping("/products/{id}")
+	public ResponseEntity<ProductEntity> updateProduct(@PathVariable long id, @RequestBody ProductEntity product){
+		product.setId(id);
+		System.out.println(product);
+		return ResponseEntity.ok().body(this.service.createOrUpdateProduct(product));
+	}
 
     // @RequestMapping(path = "/delete/{id}")
     @DeleteMapping("/delete/{id}")
