@@ -8,7 +8,6 @@ import com.fourtitude.product.exception.RecordNotFoundException;
 import com.fourtitude.product.model.ProductEntity;
 import com.fourtitude.product.service.ProductService;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
