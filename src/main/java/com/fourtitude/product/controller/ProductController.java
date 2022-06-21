@@ -4,69 +4,53 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.fourtitude.product.exception.DataResponseException;
 import com.fourtitude.product.exception.RecordNotFoundException;
 import com.fourtitude.product.model.ProductEntity;
 import com.fourtitude.product.service.ProductService;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/")
 public class ProductController {
     @Autowired
-    ProductService service;
+    private ProductService service;
 
-    // Return HTML View
-    @GetMapping("/test")
-    public ModelAndView index () {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("list-products");
-        return modelAndView;
-    }
-
-    // @RequestMapping
+    // Get all products
     @GetMapping("/products")
-    // public String getAllProducts(Model model) {
     public ResponseEntity<List<ProductEntity>> getAllProduct() {
-        // System.out.println("getAllProducts");
-        // List<ProductEntity> list = service.getAllProducts();
-        // model.addAttribute("products", list);
-        // return "list-products";
         return ResponseEntity.ok().body(service.getAllProducts());
     }
 
-    /* Get Single Products */
-    @GetMapping("/product/{id}")
-    public ProductEntity getProduct(@PathVariable("id") Long id) throws RecordNotFoundException {
+    // Get single Product
+    @RequestMapping(value="/product", method = RequestMethod.GET)
+    public ProductEntity getProduct(@RequestParam("id") Long id) throws RecordNotFoundException {
         return service.getProductById(id);
     }
 
-    // @RequestMapping(path = "/createProduct", method = RequestMethod.POST)
-    @PostMapping("/products")
+    // Add new product
+    @PostMapping("/product")
     public String createOrUpdateProduct(ProductEntity product) {
         System.out.println("createOrUpdateProduct ");
         service.createOrUpdateProduct(product);
-        return "Inserted";
+        return "add-edit-product";
     }
 
-    // @RequestMapping(path = { "/edit", "/edit/{id}" })
-    @PutMapping("/product/{id}")
-    public String editProductById(Model model, @PathVariable("id") Optional<Long> id)
+    // Update existing product
+//    @PutMapping("/product/{id}")
+    @RequestMapping(value="/product", method = RequestMethod.PUT)
+    public String editProductById(Model model, @RequestParam("id") Optional<Long> id)
             throws RecordNotFoundException {
 
-        System.out.println("editProductById" + id);
+        System.out.println("editProductById " + id);
         if (id.isPresent()) {
             ProductEntity entity = service.getProductById(id.get());
+            service.createOrUpdateProduct(entity);
             model.addAttribute("product", entity);
         } else {
             model.addAttribute("product", new ProductEntity());
@@ -75,7 +59,7 @@ public class ProductController {
         return "add-edit-product";
     }
 
-    // @RequestMapping(path = "/delete/{id}")
+    // Delete product
     @DeleteMapping("/product/{id}")
     public String deleteProductById(Model model, @PathVariable("id") Long id)
             throws RecordNotFoundException {
