@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Student Attendance System (SAS)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body onload="loadTableData();">
+    <div class="card" style="padding-top: 30px;">
+        <div class="card-body">
+            <h1>Student Attendance System - SAS</h1><br>
+            <h3>Software Construction (Section 01) - Dr. Adila Firdaus binti Arbain</h3>
+            <p>
+                <a href="/add-student" class="btn btn-primary">
+                    Add
+                </a>
+            </p><br>
+            <div class="col-md-15">
+                <div>
+                    <table class="table table-striped table-responsive-md">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Matric Number</th>
+                                <th>StudentName</th>
+                                <th colspan="2">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="studTable">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        // Initialize page by load all student data
+        function loadTableData() {
+            $(document).ready(function () {
+                $.ajax({
+                    url: 'http://localhost:8080/students',
+                    type: 'GET',
+                    contentType: "application/json",
+                    jsonpCallback: "jsonRead",
+                    headers: { 'Accept': 'application/json', 'X-Request': 'JSON' },
+                    success: function (response) {
+                        console.log(response);
+                        if (response == '') {
+                            alert('No student(s) exist!');
+                        } else {
+                            $.each(response, function (i, item) {
+                                var $tr = $('<tr>').append(
+                                    $('<td>').text(item.id),
+                                    $('<td>').text(item.studentmatric),
+                                    $('<td>').text(item.studentname),
+                                    $('<td>').prepend('<button class="btn btn-warning" onclick=getStud(' + item.id + ')><i class="bi bi-pencil-square"></i></button>'),
+                                    $('<td>').prepend('<button class="btn btn-danger" onclick=deleteStud(' + item.id + ')><i class="bi bi-trash-fill"></i></button>'),
+                                ).appendTo('#studTable');
+                            });
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        }
+
+        // Delete student
+        function deleteStud(studId) {
+            $.ajax({
+                url: 'http://localhost:8080/student/' + studId,
+                type: 'delete',
+                contentType: 'application/json',
+                traditional: true,
+                success: function (response) {
+                    alert("Student " + studId + " deleted");
+                    window.location.reload();
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        // Redirect to manage student page
+        function getStud(studId) {
+            console.log(studId);
+            const url = "http://localhost:8080/edit-student?id=" + studId;
+            console.log(url);
+            window.location.href = url;
+        }
+
+    </script>
+</body>
+
+
+</html>
