@@ -19,9 +19,9 @@
             <button class="btn btn-primary" onclick="return_tab()">
                 Back to listing
             </button>
-            <button class="btn btn-primary" onclick="addStud()">
+            <!-- <button class="btn btn-primary" onclick="addStud()">
                 Add Student
-            </button>
+            </button> -->
         </p>
         <br>
         <div class="card">
@@ -49,7 +49,7 @@
                             <div class="col-md-6">
                                 <input type="submit" id="save" href="#" class="btn btn-primary" value=" Submit ">
                             </div>
-                            <input type="text" id="id">
+                            <!-- <input type="text" id="id"> -->
                         </div>
                     </form>
                 </div>
@@ -79,7 +79,7 @@
                 studentName: $("#studentname").val(),
             };
 
-            if (!id) {
+            if (!studId) {
                 console.log("tmbh");
                 $.ajax({
                     url: 'http://localhost:8080/student',
@@ -116,6 +116,8 @@
 
     // Load selected student ID
     function loadStudentData() {
+        const queryString = window.location.search.slice(4);
+        studId = queryString;
         console.log("hahahaha"+studId);
         if (!studId) {
             console.log('Add student');
