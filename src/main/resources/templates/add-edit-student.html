@@ -34,7 +34,7 @@
                                 <td>Matric Number</td>
                                 <td style="width:20px;">:</td>
 
-                                <td><input type="text" class="form-control" id="studentmatric" name="studentmatric"
+                                <td><input type="text" class="form-control" id="studentMatric" name="studentMatric"
                                         placeholder="Matric Number" /></td>
                             </tr>
                             <tr>
@@ -66,7 +66,7 @@
     $(document).ready(function () {
         const queryString = window.location.search.slice(4);
         studId = queryString;
-
+        console.log("hehehe"+studId);
         $("#student-form").submit(function (e) {
 
             e.preventDefault();
@@ -75,8 +75,8 @@
             id == '' ? console.log('kosong') : console.log(id);
 
             var formData = {
-                studentmatric: $("#studentmatric").val(),
-                studentname: $("#studentname").val(),
+                studentMatric: $("#studentMatric").val(),
+                studentName: $("#studentname").val(),
             };
 
             if (!id) {
@@ -116,6 +116,7 @@
 
     // Load selected student ID
     function loadStudentData() {
+        console.log("hahahaha"+studId);
         if (!studId) {
             console.log('Add student');
             $("#form-student").append("<h1>Attendance Form</h1>");
@@ -134,8 +135,8 @@
                     headers: { 'Accept': 'application/json', 'X-Request': 'JSON' },
                     success: function (data) {
                         console.log(data);
-                        $('#studentmatric').val(data.studentmatric);
-                        $('#studentname').val(data.studentname);
+                        $('#studentMatric').val(data.studentMatric);
+                        $('#studentname').val(data.studentName);
                     },
                     error: function (error) {
                         console.log(error.toString());

@@ -28,7 +28,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Matric Number</th>
-                                <th>StudentName</th>
+                                <th>Student Name</th>
                                 <th colspan="2">Actions</th>
                             </tr>
                         </thead>
@@ -48,8 +48,8 @@
                 $.ajax({
                     url: 'http://localhost:8080/students',
                     type: 'GET',
-                    contentType: "application/json",
-                    jsonpCallback: "jsonRead",
+                    contentType: 'application/json',
+                    jsonpCallback: 'jsonRead',
                     headers: { 'Accept': 'application/json', 'X-Request': 'JSON' },
                     success: function (response) {
                         console.log(response);
@@ -57,10 +57,11 @@
                             alert('No student(s) exist!');
                         } else {
                             $.each(response, function (i, item) {
+                                console.log(item)
                                 var $tr = $('<tr>').append(
                                     $('<td>').text(item.id),
-                                    $('<td>').text(item.studentmatric),
-                                    $('<td>').text(item.studentname),
+                                    $('<td>').text(item.studentMatric),
+                                    $('<td>').text(item.studentName),
                                     $('<td>').prepend('<button class="btn btn-warning" onclick=getStud(' + item.id + ')><i class="bi bi-pencil-square"></i></button>'),
                                     $('<td>').prepend('<button class="btn btn-danger" onclick=deleteStud(' + item.id + ')><i class="bi bi-trash-fill"></i></button>'),
                                 ).appendTo('#studTable');

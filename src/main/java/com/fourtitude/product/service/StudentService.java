@@ -33,7 +33,7 @@ public class StudentService {
 		boolean exist = repository.existsById(id);
 
 		if (!exist) {
-			throw new RecordNotFoundException("No product record exist for given id: " + id + "!");
+			throw new RecordNotFoundException("No student record exist for given id: " + id + "!");
 		}
 
 		return student.get();
@@ -74,7 +74,7 @@ public class StudentService {
 		if (student.isPresent()) {
 			repository.deleteById(id);
 		} else {
-			throw new RecordNotFoundException("No product record exist for given id: " + id + "!");
+			throw new RecordNotFoundException("No student record exist for given id: " + id + "!");
 		}
 	}
 }

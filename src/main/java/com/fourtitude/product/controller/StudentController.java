@@ -35,7 +35,7 @@ public class StudentController {
     public String createOrUpdateStudent(StudentEntity student) {
         System.out.println("controller - createOrUpdateStudent");
         service.createOrUpdateStudent(student);
-        return "add-edit-product";
+        return "add-edit-student";
     }
 
     // Update existing student
