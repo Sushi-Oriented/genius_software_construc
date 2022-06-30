@@ -33,8 +33,6 @@ Youtube: https://youtu.be/Ijftyy_1duE
 - Open a web browser and enter `http://localhost:8080`.
 
 ## Authors
-
-## Authors
 - Amirul Faiz bin Ahmad Puad [abustika](https://github.com/abustika). `JS Dev.`
 - Arif Masyhur bin Mohd Hatta [arifmasyhur20](https://github.com/arifmasyhur20). `Programmer`
 - Muhammad Hafiz bin Khairol Nassuha [mhafizkn](https://github.com/mhafizkn). `DevOps Eng.`
