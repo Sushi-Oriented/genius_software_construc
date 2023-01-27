@@ -29,7 +29,7 @@ Youtube: https://youtu.be/Ijftyy_1duE
 
 #### Run the App
 - Clone the repository: `branch master`.
-- Run the command: `mvnw spring-boot:run`.
+- Run the command: `mvn spring-boot:run`.
 - Open a web browser and enter `http://localhost:8080`.
 
 ## Authors
